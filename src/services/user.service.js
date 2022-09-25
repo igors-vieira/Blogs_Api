@@ -3,15 +3,17 @@ const { User } = require('../models');
 const userPost = async ({ email, password }) => {
   const users = await User.findOne({ where: { email } });
 
-  if (users) {
-    return true;
+  // console.log(users.password);
+
+  if (!users) {
+    return false;
   }
 
-  if (users.password !== password) {
-    return true;
+  if (users.dataValues.password !== password) {
+    return false;
   }
 
-  return false;
+  return true;
 };
 
 module.exports = {
