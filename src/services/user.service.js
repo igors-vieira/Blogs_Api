@@ -7,20 +7,33 @@ const loginPost = async ({ email, password }) => {
 
   if (users.dataValues.password !== password) return false;
 
-  return true;
+  return users.dataValues.id;
 };
 
 const userPost = async ({ displayName, email, password, image }) => {
   const hasUsers = await User.findOne({ where: { email } });
-  console.log(hasUsers);
   if (hasUsers) return false;
 
-  await User.create({ displayName, email, password, image });
+  const users = await User.create({ displayName, email, password, image });
 
-  return true;
+  return users.dataValues.id;
+};
+
+const getByUserId = async (id) => {
+  const users = await User.findByPk(id);
+
+  return users;
+};
+
+const getAllUsers = async () => {
+  const users = await User.findAll({ attributes: { exclude: ['password'] } });
+
+  return users;
 };
 
 module.exports = {
   loginPost,
   userPost,
+  getByUserId,
+  getAllUsers,
 };

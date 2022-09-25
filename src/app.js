@@ -3,10 +3,13 @@ const express = require('express');
 const app = express();
 
 const user = require('./controller/user.controller');
+const tokenValidate = require('./middleware/auth/validateJWT');
 const loginValidade = require('./middleware/loginValidate');
 const createUser = require('./middleware/createUserValidate');
 
 app.use(express.json());
+
+app.get('/user', tokenValidate, user.getAllUsers);
 
 app.post('/login', loginValidade, user.loginPost);
 

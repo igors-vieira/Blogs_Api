@@ -7,7 +7,7 @@ module.exports = (req, res, next) => {
     password,
   });
 
-  if (error) return res.status(error.status).json({ message: error.message });
+  if (error) return res.status(400).json({ message: error.message });
 
   return next();
 };
