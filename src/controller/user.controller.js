@@ -41,7 +41,23 @@ const getAllUsers = async (_req, res) => {
     const result = await userService.getAllUsers();
     res.status(200).json(result);
   } catch (error) {
-    res.status(404).json(error.message);
+    res.status(400).json(error.message);
+  }
+};
+
+const getUsersId = async (req, res) => {
+  const { id } = req.params;
+
+  console.log(id);
+
+  try {
+    const result = await userService.getByUserId(Number(id));
+
+    if (!result) return res.status(404).json({ message: 'User does not exist' });
+    
+    return res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json(error.message);
   }
 };
 
@@ -49,4 +65,5 @@ module.exports = {
   loginPost,
   userPost,
   getAllUsers,
+  getUsersId,
 };

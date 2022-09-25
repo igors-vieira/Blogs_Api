@@ -20,7 +20,7 @@ const userPost = async ({ displayName, email, password, image }) => {
 };
 
 const getByUserId = async (id) => {
-  const users = await User.findByPk(id);
+  const users = await User.findOne({ where: { id }, attributes: { exclude: ['password'] } });
 
   return users;
 };
