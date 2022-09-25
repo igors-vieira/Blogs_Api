@@ -1,13 +1,13 @@
-const schema = require('./schemas');
+const { loginSchema } = require('./schemas');
 
 module.exports = (req, res, next) => {
   const { email, password } = req.body;
-  const { error } = schema.validate({
+  const { error } = loginSchema.validate({
     email,
     password,
   });
 
-  if (error) return res.status(400).json({ message: error.message });
+  if (error) return res.status(error.status).json({ message: error.message });
 
   return next();
 };

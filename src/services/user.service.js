@@ -1,21 +1,26 @@
 const { User } = require('../models');
 
-const userPost = async ({ email, password }) => {
+const loginPost = async ({ email, password }) => {
   const users = await User.findOne({ where: { email } });
 
-  // console.log(users.password);
+  if (!users) return false;
 
-  if (!users) {
-    return false;
-  }
+  if (users.dataValues.password !== password) return false;
 
-  if (users.dataValues.password !== password) {
-    return false;
-  }
+  return true;
+};
+
+const userPost = async ({ displayName, email, password, image }) => {
+  const hasUsers = await User.findOne({ where: { email } });
+  console.log(hasUsers);
+  if (hasUsers) return false;
+
+  await User.create({ displayName, email, password, image });
 
   return true;
 };
 
 module.exports = {
+  loginPost,
   userPost,
 };

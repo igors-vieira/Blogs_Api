@@ -1,19 +1,21 @@
 const Joi = require('joi');
 
-const schema = Joi.object({
-  email: Joi
-  .string()
-  .email()
-  .min(3)
-  .required()
-  .messages({
-    'string.empty': 'Some required fields are missing',
-  }),
+const messageErro = 'Some required fields are missing';
 
-  password: Joi.string().min(6).required()
-  .messages({
-    'string.empty': 'Some required fields are missing',
-  }),
+const loginSchema = Joi.object({
+  email: Joi.string().required().messages({ 'string.empty': messageErro }),
+  password: Joi.string().messages({ 'string.empty': messageErro }),
 });
 
-module.exports = schema;
+const registerUserSchema = Joi.object({
+  displayName: Joi.string().min(8).required(),
+  email: Joi.string().email().required(),
+  password: Joi.string().min(6).required(),
+});
+
+module.exports = {
+  loginSchema,
+  registerUserSchema,
+};
+
+// displayName, email, password, image
