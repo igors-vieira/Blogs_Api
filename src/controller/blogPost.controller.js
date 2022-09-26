@@ -1,12 +1,25 @@
 const blogPostsService = require('../services/blogPost.service');
 
-const getAllPosts = async (req, res) => {
+const getAllPosts = async (_req, res) => {
   try {
     const result = await blogPostsService.getAllPosts();
 
-    if (!result) res.sendStatus(400);
+    return res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+};
 
-    res.status(200).json(result);
+const getPostsId = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await blogPostsService.getPostsId(Number(id));
+
+    if (!result) return res.status(404).json({ message: 'Post does not exist' });
+
+    return res.status(200).json(result);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
@@ -15,4 +28,5 @@ const getAllPosts = async (req, res) => {
 
 module.exports = {
   getAllPosts,
+  getPostsId,
 };

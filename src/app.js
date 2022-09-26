@@ -17,6 +17,7 @@ app.get('/user', tokenValidate, user.getAllUsers);
 app.get('/user/:id', tokenValidate, user.getUsersId);
 app.get('/categories', tokenValidate, category.allCategories);
 app.get('/post', tokenValidate, blogPost.getAllPosts);
+app.get('/post/:id', tokenValidate, blogPost.getPostsId);
 
 app.post('/login', loginValidade, user.loginPost);
 app.post('/user', createUser, user.userPost);
