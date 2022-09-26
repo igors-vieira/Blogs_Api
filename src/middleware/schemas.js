@@ -13,9 +13,14 @@ const registerUserSchema = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
+const createCategorySchema = Joi.object({
+  name: Joi.string().required(),
+});
+
 module.exports = {
   loginSchema,
   registerUserSchema,
+  createCategorySchema,
 };
 
 // displayName, email, password, image
