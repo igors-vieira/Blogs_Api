@@ -30,7 +30,7 @@ const userPost = async (req, res) => {
   }
 
   const token = jwt.sign({ id: result, displayName, email }, JWT_SECRET, {
-    expiresIn: '1h',
+    expiresIn: '6h',
   });
 
   return res.status(201).json({ token });

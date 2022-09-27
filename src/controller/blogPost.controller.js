@@ -26,7 +26,25 @@ const getPostsId = async (req, res) => {
   }
 };
 
+const createPost = async (req, res) => {
+  const { title, content, categoryIds } = req.body;
+  const { dataValues } = req.user;
+
+  try {
+    const result = await blogPostsService
+    .createPost(dataValues.id, { title, content, categoryIds });
+
+    if (!result) return res.status(400).json({ message: '"categoryIds" not found' });
+
+    return res.status(201).json(result);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+};
+
 module.exports = {
   getAllPosts,
   getPostsId,
+  createPost,
 };

@@ -17,10 +17,16 @@ const createCategorySchema = Joi.object({
   name: Joi.string().required(),
 });
 
+const createPostSchema = Joi.object({
+  title: Joi.string().required().messages({ 'string.empty': messageErro }),
+  content: Joi.string().required().messages({ 'string.empty': messageErro }),
+  categoryIds: Joi.array().required(),
+});
+
 module.exports = {
   loginSchema,
   registerUserSchema,
   createCategorySchema,
+  createPostSchema,
 };
-
-// displayName, email, password, image
+// title, content, categoryIds

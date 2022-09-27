@@ -10,6 +10,7 @@ const tokenValidate = require('./middleware/auth/validateJWT');
 const loginValidade = require('./middleware/loginValidate');
 const createCategoryMid = require('./middleware/createCategoryMid');
 const createUser = require('./middleware/createUserValidate');
+const createPost = require('./middleware/createPostValidate');
 
 app.use(express.json());
 
@@ -22,6 +23,7 @@ app.get('/post/:id', tokenValidate, blogPost.getPostsId);
 app.post('/login', loginValidade, user.loginPost);
 app.post('/user', createUser, user.userPost);
 app.post('/categories', createCategoryMid, tokenValidate, category.createCategory);
+app.post('/post', createPost, tokenValidate, blogPost.createPost);
 
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`
