@@ -37,14 +37,19 @@ const createPost = async (userId, { title, content, categoryIds }) => {
   return posts;
 };
 
+const updatePostId = async (id, { title, content }) => {
+  const updatePost = await BlogPost.update({ title, content }, { where: { id } });
+
+  if (!updatePost) return false;
+
+  const postUpdated = await getPostsId(id);
+
+  return postUpdated;
+};
+
 module.exports = {
   getAllPosts,
   getPostsId,
   createPost,
+  updatePostId,
 };
-
-// {
-//   "title": "Latest updates, August 1st",
-//   "content": "The whole text for the blog post goes here in this key",
-//   "categoryIds": [1, 2]
-// }

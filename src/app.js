@@ -25,6 +25,8 @@ app.post('/user', createUser, user.userPost);
 app.post('/categories', createCategoryMid, tokenValidate, category.createCategory);
 app.post('/post', createPost, tokenValidate, blogPost.createPost);
 
+app.put('/post/:id', createPost, tokenValidate, blogPost.updatePostId);
+
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`
 module.exports = app;

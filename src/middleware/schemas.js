@@ -20,7 +20,7 @@ const createCategorySchema = Joi.object({
 const createPostSchema = Joi.object({
   title: Joi.string().required().messages({ 'string.empty': messageErro }),
   content: Joi.string().required().messages({ 'string.empty': messageErro }),
-  categoryIds: Joi.array().required(),
+  categoryIds: Joi.array(),
 });
 
 module.exports = {
