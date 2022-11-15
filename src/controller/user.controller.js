@@ -14,7 +14,7 @@ const loginPost = async (req, res) => {
   }
 
   const token = jwt.sign({ id: result, email }, JWT_SECRET, {
-    expiresIn: '1h',
+    expiresIn: '6h',
   });
 
   return res.status(200).json({ token });
@@ -48,8 +48,6 @@ const getAllUsers = async (_req, res) => {
 const getUsersId = async (req, res) => {
   const { id } = req.params;
 
-  console.log(id);
-
   try {
     const result = await userService.getByUserId(Number(id));
 
@@ -61,9 +59,22 @@ const getUsersId = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  const { dataValues } = req.user;
+
+  try {
+    const result = await userService.deleteUser(dataValues.id);
+    
+    return res.status(204).json(result);
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+};
+
 module.exports = {
   loginPost,
   userPost,
   getAllUsers,
   getUsersId,
+  deleteUser,
 };

@@ -11,6 +11,21 @@ const getAllPosts = async (_req, res) => {
   }
 };
 
+const searchPosts = async (req, res) => {
+  const { q } = req.query;
+
+  console.log(q);
+
+  try {
+    const result = await blogPostsService.searchPosts(q);
+
+    return res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+};
+
 const getPostsId = async (req, res) => {
   const { id } = req.params;
 
@@ -62,9 +77,28 @@ const updatePostId = async (req, res) => {
   }
 };
 
+const deletePostId = async (req, res) => {
+  const { dataValues } = req.user;
+  const { id } = req.params;
+
+  try {
+    const result = await blogPostsService.deletePostId(id, dataValues);
+
+    if (!result) return res.status(404).json({ message: 'Post does not exist' });
+    if (result === 'unauthorized') return res.status(401).json({ message: 'Unauthorized user' });
+
+    return res.sendStatus(204);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+};
+
 module.exports = {
   getAllPosts,
   getPostsId,
   createPost,
   updatePostId,
+  deletePostId,
+  searchPosts,
 };

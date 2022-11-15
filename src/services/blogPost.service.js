@@ -1,8 +1,21 @@
+const { Op } = require('sequelize');
 const { BlogPost, Category, User, PostCategory } = require('../models');
 
 const getAllPosts = async () => {
   const posts = await BlogPost
   .findAll({ include: [{ model: User, as: 'user', attributes: { exclude: ['password'] } },
+  { model: Category, as: 'categories', through: { attributes: [] } }] });
+
+  return posts;
+};
+
+const searchPosts = async (query) => {
+  console.log(query);
+  if (!query) return getAllPosts();
+  const posts = await BlogPost
+  .findAll({ where: { [Op.or]: [{ title: { [Op.substring]: query } }, 
+    { content: { [Op.substring]: query } }] },
+include: [{ model: User, as: 'user', attributes: { exclude: ['password'] } },
   { model: Category, as: 'categories', through: { attributes: [] } }] });
 
   return posts;
@@ -47,9 +60,23 @@ const updatePostId = async (id, { title, content }) => {
   return postUpdated;
 };
 
+const deletePostId = async (id, dataValues) => {
+  const postToDelete = await getPostsId(id);
+
+  if (!postToDelete) return false;
+
+  if (dataValues.id !== postToDelete.userId) return 'unauthorized';
+
+  const postDeleted = await BlogPost.destroy({ where: { id }, force: true });
+
+  return postDeleted;
+};
+
 module.exports = {
   getAllPosts,
   getPostsId,
   createPost,
   updatePostId,
+  deletePostId,
+  searchPosts,
 };

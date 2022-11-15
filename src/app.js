@@ -14,6 +14,7 @@ const createPost = require('./middleware/createPostValidate');
 
 app.use(express.json());
 
+app.get('/post/search', tokenValidate, blogPost.searchPosts);
 app.get('/user', tokenValidate, user.getAllUsers);
 app.get('/user/:id', tokenValidate, user.getUsersId);
 app.get('/categories', tokenValidate, category.allCategories);
@@ -26,6 +27,9 @@ app.post('/categories', createCategoryMid, tokenValidate, category.createCategor
 app.post('/post', createPost, tokenValidate, blogPost.createPost);
 
 app.put('/post/:id', createPost, tokenValidate, blogPost.updatePostId);
+
+app.delete('/post/:id', tokenValidate, blogPost.deletePostId);
+app.delete('/user/me', tokenValidate, user.deleteUser);
 
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`
