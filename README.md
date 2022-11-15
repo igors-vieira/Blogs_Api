@@ -1,15 +1,15 @@
-# Blog API
+# :computer: Blog API
 
-# Sobre
+# :scroll: Sobre
 
 Este trabalho foi individual feito na Trybe. Que consiste em testar uma API para um Blog. Nela tem um CRUD de postagens com uma camada de autenticação de pessoas usuárias.
 
-## Técnologias usadas
+## :technologist: Técnologias usadas
 
 Back-end:
 > Desenvolvido usando: NodeJS, ExpressJS, MYSQL, ES6, Sequelize, Jwt, Joi, Docker
 
-## Clone o repositório:
+## :memo: Clone o repositório:
 
 ```
 git clone git@github.com:igors-vieira/Blogs_Api.git
@@ -17,7 +17,7 @@ cd Blogs_Api/
 npm install
 ```
 
-## Instalando Dependências
+## :hammer_and_wrench: Instalando Dependências
 
 <details>
   <summary><strong>🐋 Rodando com Docker</strong></summary>
@@ -51,10 +51,12 @@ npm install
   <br />
 </details>
 
-## Acessando aplicação
+## :detective: Acessando aplicação
 
 > :information_source: Para acessar e necessário algum aplicativo para executar as Rotas e passar as informçoes indispensáveis
 
 - **✨ Dica:** um desses aplicavos pode se o **Insomnia** que pode ser baixado [Aqui](https://insomnia.rest/download)
 
 - Ou pode ser pelo **Thunder Client** que e uma extensão do **VsCode**
+
+:construction: em construção ! :construction:
